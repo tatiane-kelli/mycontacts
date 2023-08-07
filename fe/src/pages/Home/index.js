@@ -48,3 +48,18 @@ export default function Home() {
     </Container>
   );
 }
+
+fetch('http://localhost:3000', {
+  method: 'DELETE',
+  headers: new Headers({
+    'X-App-Id': '123',
+  }),
+})
+  .then((response) => {
+    console.log('response', response);
+
+    response.headers.forEach((header) => console.log(header));
+  })
+  .catch((error) => {
+    console.log('erro', error);
+  });
