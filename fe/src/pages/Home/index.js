@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { Link } from 'react-router-dom';
 import { useEffect, useState, useMemo } from 'react';
 import {
@@ -6,9 +7,9 @@ import {
 import arrowIcon from '../../assets/images/icons/arrow.svg';
 import editIcon from '../../assets/images/icons/edit.svg';
 import trashIcon from '../../assets/images/icons/trash.svg';
-import delay from '../../utils/delay';
 
 import Loader from '../../components/Loader';
+import ContactsService from '../../services/ContactsService';
 
 export default function Home() {
   const [contacts, setContacts] = useState([]);
@@ -21,22 +22,21 @@ export default function Home() {
   )), [contacts, searchTerm]);
 
   useEffect(() => {
-    setIsLoading(true);
+    async function loadContacts() {
+      try {
+        setIsLoading(true);
 
-    fetch(`http://localhost:3000/contacts?orderBy=${orderBy}`)
-      .then(async (response) => {
-        await delay(500);
+        const contactsList = await ContactsService.listContacts(orderBy);
 
-        const json = await response.json();
-        setContacts(json);
-      })
-      .catch((error) => {
-        console.log('erro', error);
-      })
-      .finally(() => {
+        setContacts(contactsList);
+      } catch (error) {
+        console.log('error', error);
+      } finally {
         setIsLoading(false);
-      });
+      }
+    }
 
+    loadContacts();
     return () => console.log('cleanup');
   }, [orderBy]);
 
