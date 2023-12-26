@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { Link } from 'react-router-dom';
 import { useEffect, useState, useMemo } from 'react';
 import {

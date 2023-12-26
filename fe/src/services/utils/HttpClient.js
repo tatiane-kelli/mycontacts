@@ -10,8 +10,7 @@ class HttpClient {
 
     await delay(500);
 
-    const json = await response.json();
-    return json;
+    return response.json();
   }
 }
 
