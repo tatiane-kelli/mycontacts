@@ -8,6 +8,7 @@ import editIcon from '../../assets/images/icons/edit.svg';
 import trashIcon from '../../assets/images/icons/trash.svg';
 
 import Loader from '../../components/Loader';
+
 import ContactsService from '../../services/ContactsService';
 
 export default function Home() {
@@ -29,7 +30,11 @@ export default function Home() {
 
         setContacts(contactsList);
       } catch (error) {
-        console.log('error', error);
+        console.log('Name: ', error.name);
+        console.log('Message: ', error.message);
+        console.log('Response: ', error.response);
+        console.log('Body: ', error.body);
+        console.log(error);
       } finally {
         setIsLoading(false);
       }
